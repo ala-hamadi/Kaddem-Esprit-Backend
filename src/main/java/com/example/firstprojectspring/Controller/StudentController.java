@@ -57,4 +57,16 @@ public class StudentController {
       return false;
     }
   }
+
+  @PostMapping("/addAndAssignEtudiantToEquipeAndContract/{id}/{idd}")
+  public Student addAndAssignEtudiantToEquipeAndContract(@RequestBody Student student,@PathVariable("id") Integer id,@PathVariable("idd") Integer idd) {
+    return studentServices.addAndAssignEtudiantToEquipeAndContract(student,id,idd);
+  }
+
+  @GetMapping("/getStudentByDep/{id}")
+  public List<Student> getStudentByDep(@PathVariable("id") Integer id) {
+    return studentServices.getStudentByDep(id);
+  }
+
+
 }

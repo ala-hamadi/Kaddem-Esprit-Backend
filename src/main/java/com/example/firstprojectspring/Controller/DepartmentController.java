@@ -38,11 +38,17 @@ public class DepartmentController {
 
   @DeleteMapping("/department/{id}")
   public Boolean deleteDepartmentById(@PathVariable("id") Long departmentId) {
-      Department department = departmentServices.deleteById(departmentId);
-      if (department != null) {
-          return true;
-      } else {
-          return false;
-      }
+    Department department = departmentServices.deleteById(departmentId);
+    if (department != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
+
+  @GetMapping("/retrieveDepartementsByUniversite/{id}")
+  public List<Department> retrieveDepartementsByUniversite(@PathVariable("id") Integer id) {
+    return departmentServices.retrieveDepartementsByUniversite(id);
+  }
+
 }

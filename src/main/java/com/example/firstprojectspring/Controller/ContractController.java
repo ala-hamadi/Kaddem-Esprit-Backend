@@ -1,5 +1,6 @@
 package com.example.firstprojectspring.Controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,4 +51,25 @@ public class ContractController {
       return false;
     }
   }
+
+  @GetMapping("/contract/{idc}/student/{ids}")
+  public Contract affectContratToEtudiant(@PathVariable("idc") Integer idc, @PathVariable("ids") Integer ids) {
+    return contractServices.affectContratToEtudiant(idc, ids);
+  }
+
+  @GetMapping("/retrieveAndUpdateStatusContract")
+  public List<Contract> retrieveAndUpdateStatusContract() {
+    return contractServices.retrieveAndUpdateStatusContract();
+  }
+
+  @GetMapping("/getChiffreAffaireEntreDeuxDate/{startDate}/{endDate}")
+  public Float getChiffreAffaireEntreDeuxDate(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate) {
+    return contractServices.getChiffreAffaireEntreDeuxDate(startDate, endDate);
+  }
+
+  @GetMapping("/nbContratsValides/{startDate}/{endDate}")
+  public Integer nbContratsValides(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate) {
+    return contractServices.nbContratsValides(startDate, endDate);
+  }
+
 }

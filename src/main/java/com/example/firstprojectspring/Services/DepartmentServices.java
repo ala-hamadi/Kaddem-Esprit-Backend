@@ -2,18 +2,24 @@ package com.example.firstprojectspring.Services;
 
 import com.example.firstprojectspring.Models.Contract;
 import com.example.firstprojectspring.Models.Department;
+import com.example.firstprojectspring.Models.University;
 import com.example.firstprojectspring.Repository.DepartmentRepository;
+import com.example.firstprojectspring.Repository.UniversityRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class DepartmentServices implements IServices<Department>{
     @Autowired
     private DepartmentRepository departmentRepository;
 
+    @Autowired
+    private UniversityRepository universityRepository;
 
     @Override
     public Department create(Department object) {
@@ -55,5 +61,9 @@ public class DepartmentServices implements IServices<Department>{
         }else{
             return null;
         }
+    }
+
+    public List<Department> retrieveDepartementsByUniversite(Integer idUniversite) {
+        return universityRepository.findByUniversity(idUniversite);
     }
 }

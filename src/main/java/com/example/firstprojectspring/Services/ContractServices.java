@@ -1,14 +1,16 @@
 package com.example.firstprojectspring.Services;
 
-import com.example.firstprojectspring.Models.Contract;
-import com.example.firstprojectspring.Repository.ContractRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.firstprojectspring.Models.Contract;
+import com.example.firstprojectspring.Models.Student;
+import com.example.firstprojectspring.Repository.ContractRepository;
+import com.example.firstprojectspring.Repository.StudentRepository;
 
 @Service
 public class ContractServices implements IServices<Contract> {
@@ -16,6 +18,8 @@ public class ContractServices implements IServices<Contract> {
   @Autowired
   private ContractRepository contractRepository;
 
+  @Autowired
+  private StudentRepository studentRepository;
 
   @Override
   public Contract create(Contract object) {
@@ -60,4 +64,33 @@ public class ContractServices implements IServices<Contract> {
     }
   }
 
+  public Contract affectContratToEtudiant(Integer idContrat, Integer idstudent) {
+    Student s = studentRepository.findById(Long.valueOf(idstudent)).get();
+    Contract c = contractRepository.findById(Long.valueOf(idContrat)).get();
+    c.setStudent(s);
+    s.getContracts().add(c);
+    contractRepository.save(c);
+    studentRepository.save(s);
+    return c;
+  }
+
+  //@Scheduled(cron = "* * /13 * * * *" )
+  public List<Contract> retrieveAndUpdateStatusContract() {
+    List<Contract> contracts = contractRepository.findAllByContractEndDate();
+    for (Contract c : contracts) {
+      if (c.isArchived() == false) {
+        c.setArchived(true);
+        contractRepository.save(c);
+      }
+    }
+    return contracts;
+  }
+
+  public float getChiffreAffaireEntreDeuxDate(Date startDate, Date endDate) {
+    return contractRepository.getChiffreAffaireEntreDeuxDate(startDate, endDate);
+  }
+
+  public Integer nbContratsValides(Date startDate, Date endDate) {
+    return contractRepository.nbContratsValides(startDate, endDate);
+  }
 }
