@@ -16,7 +16,7 @@ import java.util.Date;
 public class Contract implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idContract;
+    private Long idContract;
     @Temporal(TemporalType.DATE)
     private Date contractStartDate;
     @Temporal(TemporalType.DATE)

@@ -15,7 +15,7 @@ import java.util.Set;
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idTeam;
+    private Long idTeam;
     private String nameTeam;
     private Level level;
 

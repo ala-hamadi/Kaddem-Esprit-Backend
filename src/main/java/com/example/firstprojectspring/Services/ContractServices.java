@@ -1,16 +1,17 @@
 package com.example.firstprojectspring.Services;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.example.firstprojectspring.Models.Contract;
 import com.example.firstprojectspring.Models.Student;
 import com.example.firstprojectspring.Repository.ContractRepository;
 import com.example.firstprojectspring.Repository.StudentRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContractServices implements IServices<Contract> {
@@ -77,8 +78,8 @@ public class ContractServices implements IServices<Contract> {
   //@Scheduled(cron = "* * /13 * * * *" )
   public List<Contract> retrieveAndUpdateStatusContract() {
     List<Contract> contracts = contractRepository.findAllByContractEndDate();
-    for (Contract c : contracts) {
-      if (c.isArchived() == false) {
+    for(Contract c : contracts) {
+      if(c.isArchived() == false){
         c.setArchived(true);
         contractRepository.save(c);
       }
@@ -86,11 +87,11 @@ public class ContractServices implements IServices<Contract> {
     return contracts;
   }
 
-  public float getChiffreAffaireEntreDeuxDate(Date startDate, Date endDate) {
-    return contractRepository.getChiffreAffaireEntreDeuxDate(startDate, endDate);
+  public float getChiffreAffaireEntreDeuxDate(Date startDate, Date endDate){
+    return contractRepository.getChiffreAffaireEntreDeuxDate(startDate,endDate);
   }
 
-  public Integer nbContratsValides(Date startDate, Date endDate) {
-    return contractRepository.nbContratsValides(startDate, endDate);
+  public Integer nbContratsValides(Date startDate, Date endDate){
+    return contractRepository.nbContratsValides(startDate,endDate);
   }
 }

@@ -17,7 +17,7 @@ public interface ContractRepository extends JpaRepository<Contract,Long> {
   @Query("SELECT sum(c.contractAmount) FROM Contract c WHERE c.contractStartDate>=:startDate and c.contractEndDate<=:endDate and c.archived=false group by c.specialty")
   Float getChiffreAffaireEntreDeuxDate(Date startDate, Date endDate);
 
-  @Query("SELECT count(c) FROM Contract c WHERE c.contractStartDate>=:startDate and c.contractEndDate<=:endDate and c.archived=true")
+  @Query("SELECT count(c) FROM Contract c WHERE c.contractStartDate>=:startDate and c.contractEndDate<=:endDate and c.archived=false")
   Integer nbContratsValides(Date startDate, Date endDate);
 
 }

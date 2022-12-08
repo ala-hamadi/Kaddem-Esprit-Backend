@@ -89,7 +89,6 @@ public class StudentServices implements IServices<Student> {
   public Student addAndAssignEtudiantToEquipeAndContract(Student e, Integer idContrat, Integer idEquipe) {
     Contract contract = contractRepository.findById(Long.valueOf(idContrat)).get();
     Team team = teamRepository.findById(Long.valueOf(idEquipe)).get();
-
     e.getContracts().add(contract);
     e.getTeams().add(team);
     studentRepository.save(e);
